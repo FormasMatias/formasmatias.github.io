@@ -4,46 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Página Web Simple</title>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 🎥 Fondo noise */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* Contenedor principal */
+        .page {
+            position: relative;
+            z-index: 1;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+       background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.20),
+    rgba(200, 20, 65, 0.65)
+            );
         }
-        
+
+      
+        /* Logo */
+        .logo {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            width: 72px;
+            z-index: 3;
+            opacity: 0.85;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+            animation: logoFade 1.5s ease-out;
+        }
+
+        @keyframes logoFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 0.85;
+                transform: translateY(0);
+            }
+        }
+
+        /* Contenedor principal */
         .container {
-            background: white;
+            background: #101317;
             border-radius: 20px;
             padding: 40px;
             max-width: 600px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
         }
-        
+
         h1 {
-            color: #667eea;
+            color: #eaf2f5;
             margin-bottom: 20px;
             font-size: 2.5em;
         }
-        
+
         p {
             margin-bottom: 20px;
             font-size: 1.1em;
             color: #555;
         }
-        
+
         .button {
             display: inline-block;
             background: #667eea;
@@ -55,13 +103,13 @@
             transition: all 0.3s ease;
             margin: 10px;
         }
-        
+
         .button:hover {
             background: #764ba2;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
+
         .emoji {
             font-size: 4em;
             margin-bottom: 20px;
@@ -69,12 +117,121 @@
     </style>
 </head>
 <body>
+
+<canvas id="noise"></canvas>
+
+<img src="SeracSigil.png" alt="Logo" class="logo">
+
+<div class="page">
     <div class="container">
         <div class="emoji">🚀</div>
         <h1>¡Bienvenido!</h1>
         <p>Esta es tu página web simple y bonita.</p>
         <p>Puedes personalizarla como quieras editando el código HTML.</p>
-        <a href="#" class="button" onclick="alert('¡Hola! Esto es un botón interactivo'); return false;">Haz clic aquí</a>
+        <a href="#" class="button"
+           onclick="alert('¡Hola! Esto es un botón interactivo'); return false;">
+           Haz clic aquí
+        </a>
     </div>
+</div>
+
+
+
+<script>
+    const canvas = document.getElementById("noise");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.font = "16px monospace";
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    const fontSize = 16;
+
+    // Símbolos suaves (menos contraste)
+    const symbols = " ✧✦";
+
+    // Paleta vaporwave suave
+    const colors = [
+     /*   [60, 50, 80],
+        [180, 150, 255],
+        [185, 170, 220]*/
+        [60, 50/3, 80/3,0.2],
+        [180, 150/3, 255/3,0],
+        [185, 170/3, 220/3,0]
+    ];
+
+    let time = 0;
+    let offsetX = Math.random() * 1000;
+    let offsetY = Math.random() * 1000;
+    let driftX = Math.random() * 0.25 + 0.1;
+    let driftY = Math.random() * 0.25 + 0.1;
+
+    function drawCloudNoise() {
+        // Fade lento = suavidad
+        ctx.fillStyle = "rgba(20, 10, 30,.8)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let y = 0; y < canvas.height; y += fontSize) {
+            for (let x = 0; x < canvas.width; x += fontSize) {
+
+                // Ondas continuas (tipo Perlin fake)
+
+
+
+                const nx = (x + offsetX) * 0.02;
+                const ny = (y + offsetY) * 0.02;
+
+               /* const n =
+                    Math.sin(nx + time * 0.6) * 0.6 +
+                    Math.cos(ny - time * 0.4) * 0.6 +
+                    Math.sin((nx + ny) * 0.7 + time * 0.2) * 0.4 +
+                    Math.sin(nx * 2.3 + time * 0.1) * 0.25;
+                    */
+
+                
+                const n =
+                Math.sin(nx + time * 0.6) * 0.6 +
+                    Math.cos(ny - time * 0.4) * 0.6 +
+                    Math.sin((nx + ny) * 0.7 + time * 0.2) * 0.4 +
+                    Math.sin((nx + ny ) * 0.1 * (x+y+time));
+
+                // Normalizamos
+                const intensity = (n + 3) / 6;
+
+                // Elegimos símbolo según intensidad
+                const index = Math.floor(intensity * symbols.length);
+                const char = symbols[index] || " ";
+
+                // Color suave interpolado
+                const c = colors[Math.floor(intensity * colors.length)];
+               
+          const alpha = 0.05 + intensity * 0.25;
+
+
+               ctx.fillStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${alpha})`;
+               ctx.shadowColor = ctx.fillStyle;
+               ctx.shadowBlur = 12;
+
+               ctx.fillText(char, x, y);
+            }
+        }
+
+        time += 0.1;
+
+      //  time += 3;
+        setTimeout(drawCloudNoise, 60);
+
+
+    }
+
+    drawCloudNoise();
+</script>
+
+
 </body>
 </html>
