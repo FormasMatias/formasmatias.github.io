@@ -6,18 +6,18 @@
     <title>Home</title>
 
     <style>
-        * {
+       * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-            color: white;
-            min-height: 100vh;
-            overflow: hidden;
+       body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
         }
 
         /* 🎥 Fondo noise */
@@ -38,10 +38,10 @@
             align-items: center;
             padding: 20px;
        background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.85),
-    rgba(0, 0, 0, 0.20),
-    rgba(200, 20, 65, 0.65)
+        to bottom,
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.20),
+        rgba(200, 20, 65, 0.65)
             );
         }
 
@@ -76,7 +76,7 @@
             background: #101317;
             border-radius: 20px;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 1100px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
             /*column-count: 2;*/
@@ -85,28 +85,35 @@
         
         .columnContainer {
 
-            column-count: 2;
+            display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
         }
 
-        .image-wrapper {
-    /* Use negative margins that match the container's padding */
+        @media (max-width: 768px) {
+            .columnContainer {
+            grid-template-columns: 1fr;
+            }
+        }
+
+.image-wrapper {
+    position: relative;
     margin-left: -40px;
     margin-right: -40px;
     margin-top: -40px;
 
-    /* If you have top/bottom padding you want to overlap, add negative margin-top/bottom as well */
+    aspect-ratio: 16 / 5;
+    overflow: hidden;
 }
 
 .image-wrapper img {
-    /* Ensure the image fills the full width of its wrapper (which is now wider than the container's content area) */
     width: 100%;
-    /* Optional: Use object-fit: cover to ensure the image covers the area nicely without stretching */
+    height: 100%;
     object-fit: cover;
-
-     border-radius: 20px 20px 0px 0px;
-    /* Optional: Adjust max-height if needed */
+    object-position: center center;
+    display: block;
+    border-radius: 20px 20px 0 0;
 }
-
         h1 {
             color: #f2244e;
             margin-bottom: 20px;
@@ -120,11 +127,12 @@
         }
 
         .button {
-            display: inline-block;
+            
             background: #f2244e;
             color: white;
           padding: 5px;
-          width: 450px;
+           width: 100%;
+             max-width: 360px;
             text-decoration: none;
             border-radius: 10px;
             font-weight: bold;
@@ -148,7 +156,83 @@
             margin-bottom: 20px;
         }
 
-        
+        @media (max-width: 768px) {
+
+  body {
+    overflow: auto;
+  }
+
+  .container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+.columnContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.columnContainer {
+        grid-template-columns: 1fr;
+    }
+
+        .image-wrapper {
+        max-height: 160px;
+    }
+
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .logo {
+    width: 48px;
+    top: 16px;
+    left: 16px;
+  }
+
+  .button {
+    margin: 10px auto;
+    font-size: 1em;
+  }
+}
+
+.divider {
+    width: 100%;
+       height: 2px;
+    margin: 10px 0;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(242, 36, 78, 0.6),
+        transparent
+    );
+}
+
+.socials {
+    display: flex;
+ justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.socials a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.socials img {
+    display: block;
+}
+
+.socials a:hover img {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
     </style>
 </head>
 <body>
@@ -164,42 +248,41 @@
    
         <!-- <div class="emoji">🚀</div> -->
             <div class="image-wrapper">
-        <img src="Thumbnail.png" width=1200px height=400px>
+        <img src="Thumbnail.png">
             </div>
-<p>══════════════════════════════════════════════════════════════════════════════════════════ </p>
+        <div class="divider"></div>
+
         <div class="columnContainer">
-       
-        <h1>⌠Matias Formas⌡</h1>
-         
-        <p>Game Developer, Digital Artist </p>
 
-        <a href="https://www.linkedin.com/in/matias-formas-147028250/">
-        <img src="https://img.icons8.com/ios11/512/FFFFFF/linkedin.png" height=32px></a>
-        <a href="https://x.com/Serac111">
-        <img src="https://img.icons8.com/ios11/512/FFFFFF/twitterx--v2.png" height=32px></a>
-        <a href="https://www.instagram.com/serac111/">
-        <img src="https://img.icons8.com/ios11/512/FFFFFF/instagram-new.png" height=32px></a>
-        <!--<a href="URL_of_destination">Link Text</a>-->
-       <!-- <p>EXAMPLE TEXT</p> -->
-    <a href="#" class="button"
-           onclick="alert('¡Hola! Esto es un botón interactivo'); return false;">
-                 <img src="PaintIcon.png" height=32px>
-               Illustration
-    </a>
+  <!-- Columna izquierda -->
+  <div class="col-left">
+    <h1>⌠Matias Formas⌡</h1>
+    <p>Game Developer, Digital Artist</p>
 
-    <a href="#" class="button"
-           onclick="alert('¡Hola! Esto es un botón interactivo'); return false;">
-                <img src="3DIcon.png" height=32px>
-                  Modeling
-        </a>
-         <h3></h3>
-    <a href="#" class="button"
-           onclick="alert('¡Hola! Esto es un botón interactivo'); return false;">
-        <img src="InfoIcon.png" height=32px>
-                  About  
-        </a>
-       
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/matias-formas-147028250/">
+        <img src="https://img.icons8.com/ios11/512/FFFFFF/linkedin.png" height="32">
+      </a>
+      <a href="https://x.com/Serac111">
+        <img src="https://img.icons8.com/ios11/512/FFFFFF/twitterx--v2.png" height="32">
+      </a>
+      <a href="https://www.instagram.com/serac111/">
+        <img src="https://img.icons8.com/ios11/512/FFFFFF/instagram-new.png" height="32">
+      </a>
     </div>
+  </div>
+
+  <!-- Columna derecha -->
+  <div class="col-right">
+    <a href="#" class="button">                 <img src="PaintIcon.png" height=32px>
+               Illustration</a>
+    <a href="#" class="button">                <img src="3DIcon.png" height=32px>
+                  Modeling</a>
+    <a href="#" class="button">        <img src="InfoIcon.png" height=32px>
+                  About  </a>
+  </div>
+
+</div>
 </div>
 
 
@@ -291,7 +374,7 @@
         time += 0.1;
 
       //  time += 3;
-        setTimeout(drawCloudNoise, 60);
+     requestAnimationFrame(drawCloudNoise);
 
 
     }
@@ -301,5 +384,4 @@
 
 
 </body>
-
 </html>
