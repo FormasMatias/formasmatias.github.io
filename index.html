@@ -18,6 +18,8 @@
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+
+     background: rgba(20, 10, 30,1);
         }
 
         /* 🎥 Fondo noise */
@@ -26,6 +28,8 @@
             top: 0;
             left: 0;
             z-index: 0;
+            opacity: 0;
+            transition: opacity .5s ease;
         }
 
         /* Contenedor principal */
@@ -102,7 +106,7 @@
     margin-right: -40px;
     margin-top: -40px;
 
-    max-height: 360px;          /* ← CLAVE */
+    aspect-ratio: 16 / 5;
     overflow: hidden;
 }
 
@@ -297,16 +301,23 @@
     const canvas = document.getElementById("noise");
     const ctx = canvas.getContext("2d");
 
+    const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+
     function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         ctx.font = "16px monospace";
     }
 
-    window.addEventListener("resize", resize);
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        canvas.style.opacity = "1";
+        drawCloudNoise();
+    }, 500);
+});
     resize();
 
-    const fontSize = 16;
+    const fontSize = isFirefox ? 24 : 16;
 
     // Símbolos suaves (menos contraste)
     const symbols = " ✧✦";
@@ -326,11 +337,17 @@
     let offsetY = Math.random() * 1000;
     let driftX = Math.random() * 0.25 + 0.1;
     let driftY = Math.random() * 0.25 + 0.1;
+    let lastTime = 0;
 
-    function drawCloudNoise() {
-        // Fade lento = suavidad
-        ctx.fillStyle = "rgba(20, 10, 30,.8)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+function drawCloudNoise(timeStamp) {
+  if (timeStamp - lastTime < 80) {
+        requestAnimationFrame(drawCloudNoise);
+        return;
+    }
+    lastTime = timeStamp;
+
+    ctx.fillStyle = "rgba(20, 10, 30,.8)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         for (let y = 0; y < canvas.height; y += fontSize) {
             for (let x = 0; x < canvas.width; x += fontSize) {
@@ -371,7 +388,7 @@
 
                ctx.fillStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${alpha})`;
                ctx.shadowColor = ctx.fillStyle;
-               ctx.shadowBlur = 12;
+               ctx.shadowBlur = isFirefox ? 0 : 12;
 
                ctx.fillText(char, x, y);
             }
@@ -385,7 +402,9 @@
 
     }
 
-    drawCloudNoise();
+   window.addEventListener("load", () => {
+    setTimeout(drawCloudNoise, 500);
+});
 </script>
 
 
