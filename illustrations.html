@@ -1,0 +1,617 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Illustrations</title>
+
+
+<style>
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+     background: rgba(20, 10, 30,1);
+        }
+
+        /* 🎥 Fondo noise */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity .5s ease;
+        }
+
+        /* Contenedor principal */
+        .page {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: block;
+            justify-content: center;
+            align-items: top;
+            padding: 120px 20px 40px;
+       background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.20),
+        rgba(200, 20, 65, 0.65)
+            );
+        }
+
+        .container {
+            background: #101317;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto; /* ← centra horizontalmente */
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            /*column-count: 2;*/
+        }
+
+         /* Logo */
+        .logo {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            width: 72px;
+            z-index: 3;
+            opacity: 0.85;
+            /*pointer-events: none;*/
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+           /* animation: logoFade 1.5s ease-out;*/
+        }
+
+        @keyframes logoFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 0.85;
+                transform: translateY(0);
+            }
+        }
+
+        /*----------------------- Gallery --------------------*/
+
+ .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* ------------------------------ Lightbox ---------------------------------*/
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+.lightbox-content img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: opacity 0.2s ease;
+}
+
+.lightbox-content h3 {
+    margin-top: 16px;
+}
+
+.lightbox-content p {
+    opacity: 0.8;
+}
+
+.intro-text {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    text-align: center; /* o center si quieres */
+}
+
+.nav {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.nav:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/*
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}*/
+
+.carousel-thumbs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.5;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.thumb:hover {
+    opacity: 0.8;
+}
+
+.thumb.active {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#lightbox-img {
+    touch-action: pan-y;
+}
+
+#lightbox-img {
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    opacity: 1;
+}
+
+   </style>
+   </head>
+<body>
+
+<canvas id="noise"></canvas>
+
+ <a href="index.html"> <img src="SeracSigil.png" alt="Logo" class="logo"> </a>
+
+<div class="page">
+     <h1 class="intro-text">Illustrations</h1>
+     <div class="container">
+  
+        <section class="gallery">
+            <div class="gallery-item"
+                data-title="Proyecto Uno"
+                data-description="Descripción breve del proyecto uno."
+                data-images="files/imgs/GunPortrait.png,Thumbnail.png">
+                <img src="files/imgs/GunPortrait.png" alt="">
+            </div>
+
+            <div class="gallery-item"
+                data-title="Proyecto Dos"
+                data-description="Descripción breve del proyecto dos."
+                data-images="files/imgs/6ulletsNoCaps.png">
+               <img src="files/imgs/6ulletsNoCaps.png" alt="">
+            </div>
+
+            <div class="gallery-item"
+                data-title="Proyecto Tres"
+                data-description="Descripción breve del proyecto tres."
+                data-images="files/imgs/altus.png">
+                <img src="files/imgs/altus.png" alt="Shadow">
+            </div>
+        </section>
+    </main>
+
+    <!-- LIGHTBOX 
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="">
+            <h3 id="lightbox-title"></h3>
+            <p id="lightbox-desc"></p>
+        </div>
+    </div>-->
+
+<div class="lightbox" id="lightbox">
+
+    <div class="lightbox-content">
+
+        <img id="lightbox-img" src="">
+
+       <!-- <div class="carousel-dots" id="carouselDots"></div> -->
+        <div class="carousel-thumbs" id="carouselThumbs"></div>
+
+        <h3 id="lightbox-title"></h3>
+
+        <p id="lightbox-desc"></p>
+
+    </div>
+
+</div>
+</body>
+
+<script>
+    const canvas = document.getElementById("noise");
+    const ctx = canvas.getContext("2d");
+
+    const isFirefox = navigator.userAgent.toLowerCase().includes("firefox");
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        ctx.font = "16px monospace";
+    }
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        canvas.style.opacity = "1";
+        drawCloudNoise();
+    }, 500);
+});
+    resize();
+
+    const fontSize = isFirefox ? 24 : 16;
+
+    // Símbolos suaves (menos contraste)
+    const symbols = " ✧✦";
+
+    // Paleta vaporwave suave
+    const colors = [
+     /*   [60, 50, 80],
+        [180, 150, 255],
+        [185, 170, 220]*/
+        [60, 50/3, 80/3,0.2],
+        [180, 150/3, 255/3,0],
+        [185, 170/3, 220/3,0]
+    ];
+
+    let time = 0;
+    let offsetX = Math.random() * 1000;
+    let offsetY = Math.random() * 1000;
+    let driftX = Math.random() * 0.25 + 0.1;
+    let driftY = Math.random() * 0.25 + 0.1;
+    let lastTime = 0;
+
+function drawCloudNoise(timeStamp) {
+  if (timeStamp - lastTime < 80) {
+        requestAnimationFrame(drawCloudNoise);
+        return;
+    }
+    lastTime = timeStamp;
+
+    ctx.fillStyle = "rgba(20, 10, 30,.8)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let y = 0; y < canvas.height; y += fontSize) {
+            for (let x = 0; x < canvas.width; x += fontSize) {
+
+                // Ondas continuas (tipo Perlin fake)
+
+
+
+                const nx = (x + offsetX) * 0.02;
+                const ny = (y + offsetY) * 0.02;
+
+               /* const n =
+                    Math.sin(nx + time * 0.6) * 0.6 +
+                    Math.cos(ny - time * 0.4) * 0.6 +
+                    Math.sin((nx + ny) * 0.7 + time * 0.2) * 0.4 +
+                    Math.sin(nx * 2.3 + time * 0.1) * 0.25;
+                    */
+
+                
+                const n =
+                Math.sin(nx + time * 0.6) * 0.6 +
+                    Math.cos(ny - time * 0.4) * 0.6 +
+                    Math.sin((nx + ny) * 0.7 + time * 0.2) * 0.4 +
+                    Math.sin((nx + ny ) * 0.1 * (x+y+time));
+
+                // Normalizamos
+                const intensity = (n + 3) / 6;
+
+                // Elegimos símbolo según intensidad
+                const index = Math.floor(intensity * symbols.length);
+                const char = symbols[index] || " ";
+
+                // Color suave interpolado
+                const c = colors[Math.floor(intensity * colors.length)];
+               
+          const alpha = 0.05 + intensity * 0.25;
+
+
+               ctx.fillStyle = `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${alpha})`;
+               ctx.shadowColor = ctx.fillStyle;
+               ctx.shadowBlur = isFirefox ? 0 : 12;
+
+               ctx.fillText(char, x, y);
+            }
+        }
+
+        time += 0.1;
+
+      //  time += 3;
+     requestAnimationFrame(drawCloudNoise);
+
+
+    }
+
+   window.addEventListener("load", () => {
+    setTimeout(drawCloudNoise, 500);
+});
+
+//------ Select --------------
+
+        const items = document.querySelectorAll(".gallery-item");
+        const lightbox = document.getElementById("lightbox");
+        const img = document.getElementById("lightbox-img");
+        const title = document.getElementById("lightbox-title");
+        const desc = document.getElementById("lightbox-desc");
+
+        let currentImages = [];
+        let currentIndex = 0;
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const dotsContainer = document.getElementById("carouselDots");
+        const thumbsContainer = document.getElementById("carouselThumbs");
+/*
+        items.forEach(item => {
+            item.addEventListener("click", () => {
+                const images = item.dataset.images.split(",");
+                img.src = images[1];
+
+                title.textContent = item.dataset.title;
+                desc.textContent = item.dataset.description;
+                lightbox.classList.add("active");
+            });
+        });*/
+
+        items.forEach(item => {
+
+
+    item.addEventListener("click", () => {
+
+        currentImages = item.dataset.images
+            .split(",")
+            .map(img => img.trim());
+
+        currentIndex = 0;
+
+
+if (currentImages.length <= 1) {
+
+    thumbsContainer.style.display = "none";
+
+} else {
+
+    thumbsContainer.style.display = "flex";
+}
+
+        updateCarousel();
+
+        title.textContent = item.dataset.title;
+        desc.textContent = item.dataset.description;
+
+        lightbox.classList.add("active");
+    });
+
+});
+
+        lightbox.addEventListener("click", () => {
+            lightbox.classList.remove("active");
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                lightbox.classList.remove("active");
+            }
+        });
+
+function updateCarousel() {
+
+    img.style.opacity = 0;
+    img.style.transform = "scale(0.98)";
+
+    setTimeout(() => {
+
+        img.src = currentImages[currentIndex];
+
+        img.style.opacity = 1;
+        img.style.transform = "scale(1)";
+
+        createThumbs();
+
+    }, 150);
+}
+/*
+function createDots() {
+
+    dotsContainer.innerHTML = "";
+
+    currentImages.forEach((_, index) => {
+
+        const dot = document.createElement("div");
+
+        dot.classList.add("dot");
+
+        if (index === currentIndex) {
+            dot.classList.add("active");
+        }
+
+        dot.addEventListener("click", (e) => {
+
+            e.stopPropagation();
+
+            currentIndex = index;
+
+            updateCarousel();
+        });
+
+        dotsContainer.appendChild(dot);
+    });
+}*/
+
+function createThumbs() {
+
+    thumbsContainer.innerHTML = "";
+
+    currentImages.forEach((imageSrc, index) => {
+
+        const thumb = document.createElement("div");
+
+        thumb.classList.add("thumb");
+
+        if (index === currentIndex) {
+            thumb.classList.add("active");
+        }
+
+        const thumbImg = document.createElement("img");
+
+        thumbImg.src = imageSrc;
+
+        thumb.appendChild(thumbImg);
+
+        thumb.addEventListener("click", (e) => {
+
+            e.stopPropagation();
+
+            currentIndex = index;
+
+            updateCarousel();
+        });
+
+        thumbsContainer.appendChild(thumb);
+    });
+}
+
+function nextImage() {
+
+    currentIndex++;
+
+    if (currentIndex >= currentImages.length) {
+        currentIndex = 0;
+    }
+
+    updateCarousel();
+}
+
+function prevImage() {
+
+    currentIndex--;
+
+    if (currentIndex < 0) {
+        currentIndex = currentImages.length - 1;
+    }
+
+    updateCarousel();
+}
+
+img.addEventListener("touchend", (e) => {
+
+    touchEndX = e.changedTouches[0].screenX;
+
+    const diff = touchStartX - touchEndX;
+
+    if (diff > 50) {
+        nextImage();
+    }
+
+    if (diff < -50) {
+        prevImage();
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+        lightbox.classList.remove("active");
+    }
+
+    if (e.key === "ArrowRight") {
+        nextImage();
+    }
+
+    if (e.key === "ArrowLeft") {
+        prevImage();
+    }
+});
+
+</script>
+
+</html>
