@@ -156,6 +156,10 @@
     text-align: center; /* o center si quieres */
 }
 
+#lightbox-desc {
+    white-space: pre-line;
+}
+
 .nav {
     background: rgba(255,255,255,0.1);
     border: none;
@@ -242,6 +246,38 @@
     opacity: 1;
 }
 
+@media (max-width: 768px) {
+
+    .lightbox-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    #lightbox-img {
+        width: 100%;
+        max-height: 55vh;
+        object-fit: contain;
+    }
+
+    #lightbox-title {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #lightbox-desc {
+        text-align: center;
+        margin-top: 10px;
+        white-space: pre-line;
+    }
+
+    .carousel-thumbs {
+        margin-top: 20px;
+        justify-content: center;
+    }
+}
+
    </style>
    </head>
 <body>
@@ -256,25 +292,94 @@
   
         <section class="gallery">
             <div class="gallery-item"
-                data-title="Proyecto Uno"
-                data-description="Descripción breve del proyecto uno."
-                data-images="files/imgs/GunPortrait.png,Thumbnail.png">
-                <img src="files/imgs/GunPortrait.png" alt="">
+                data-title="SD Pulp Crisis"
+                data-description="Fan-Arts of the game ''Blood Crisis'', recreating the style of old anime parodies like SD Gundam."
+                data-images="Files/Draw/PulpA.png,Files/Draw/PulpB.png,Files/Draw/PulpC.png,Files/Draw/PulpD.png">
+                <img src="Files/Draw/thumb/PulpThumb.png" alt="">
             </div>
 
             <div class="gallery-item"
-                data-title="Proyecto Dos"
-                data-description="Descripción breve del proyecto dos."
-                data-images="files/imgs/6ulletsNoCaps.png">
-               <img src="files/imgs/6ulletsNoCaps.png" alt="">
+                data-title="6ullets (SIX BULLETS)"
+                data-description="Conceptual Art for a potential indie dev project based on old PC Games.
+Mixing 2D art with 3D modeling to bring to life this Sci-Fi universe"
+                data-images="Files/Draw/6ullets.png,Files/Draw/6Gun.png,Files/Draw/6Dream.png,Files/Draw/6Ascii.png,Files/Draw/6UI.png,Files/Draw/6Peace.png">
+               <img src="Files/Draw/thumb/6thumb.png" alt="">
             </div>
 
             <div class="gallery-item"
                 data-title="Sci-fi Logos"
-                data-description="Multiple ideas for logos with a Sci-Fi twist"
-                data-images="files/imgs/Altus.png,files/imgs/Astronomic.png,files/imgs/RIG.png">
-                <img src="files/imgs/LogosShow.png" alt="Sci-fi Logos">
+                data-description="Multiple ideas for corporative logos based on a Sci-Fi/ Cyberpunk setting."
+                data-images="Files/Draw/SciA.png,Files/Draw/SciB.png,Files/Draw/SciC.png">
+                <img src="Files/Draw/thumb/ScifiThumb.png" alt="">
             </div>
+
+             <div class="gallery-item"
+                data-title="Parry God"
+                data-description="Mockups for a Gameboy inspired parry focused action game."
+                data-images="Files/Draw/ParryAnim.gif,Files/Draw/ParrySub.png,Files/Draw/ParryBoss.png,Files/Draw/ParryColors.png,Files/Draw/ParryCut.png">
+                <img src="Files/Draw/thumb/ParryThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Portrait of the Vampire Lady"
+                data-description="Painting of a mysterious woman, done in a Red Moon night."
+                data-images="Files/Draw/Vamp.png,Files/Draw/VampDraft.jpg">
+                <img src="Files/Draw/thumb/VampThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Velarios"
+                data-description="'' ... troops that respond on behalf of a secret organization in charge of controlling geopolitical issues and metaphysical anomalies, using a highly advanced exo-suit they are able to complete missions not suitable for a human''
+
+First illustration that inspired me to create my own Fictional Universe"
+                data-images="Files/Draw/Velarios01.png">
+                <img src="Files/Draw/thumb/VelariosThumb.png" alt="">
+            </div>
+
+            
+              <div class="gallery-item"
+                data-title="Radiance"
+                data-description="Portrait of the Cosplayer KAKA."
+                data-images="Files/Draw/KakaF.png">
+                <img src="Files/Draw/KakaF.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Fearless"
+                data-description="Fan-Art made to celebrate ''Fearless: Year of Shadow''"
+                data-images="Files/Draw/Shadow.png">
+                <img src="Files/Draw/thumb//ShadowThumb.png" alt="">
+            </div>
+
+            <div class="gallery-item"
+                data-title="Joustice"
+                data-description="Concept Art for a class I had in college, the assigment was to update an old game to newer generations
+for my project I decided to adapt the old arcade game ''Joust'' into a Souls-like"
+                data-images="Files/Draw/JousticeConcept.jpg,Files/Draw/JousticeMockup.jpg,Files/Draw/JousticeSplash.jpg,Files/Draw/thumb/JousticeThumb.png,Files/Draw/JousticeLogo.png">
+                <img src="Files/Draw/thumb/JousticeThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Sonic Project Little Planet"
+                data-description="''Sonic the Hedgehog'' Fan-Art inspired by Sonic CD, based on the Illustrations from the Sega Harmony Magazine covers."
+                data-images="Files/Draw/Sonic.jpg">
+                <img src="Files/Draw/thumb/SonicThumb.jpg" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="The Changeling"
+                data-description="Digital Painting based of Clara from the ''Pathologic'' Series."
+                data-images="Files/Draw/Clara.jpg">
+                <img src="Files/Draw/thumb/ClaraThumb.jpg" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Disperso"
+                data-description="Inspired by ''Disco Elysium'' art. An illustation that represent a moment of my life."
+                data-images="Files/Draw/Disperso.png">
+                <img src="Files/Draw/thumb/DispersoThumb.png" alt="">
+            </div>
+
         </section>
     </main>
 

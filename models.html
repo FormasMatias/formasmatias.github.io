@@ -87,7 +87,7 @@
 
         /*----------------------- Gallery --------------------*/
 
-        .gallery {
+ .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
@@ -139,6 +139,7 @@
     max-height: 70vh;
     object-fit: contain;
     border-radius: 12px;
+    transition: opacity 0.2s ease;
 }
 
 .lightbox-content h3 {
@@ -155,6 +156,128 @@
     text-align: center; /* o center si quieres */
 }
 
+#lightbox-desc {
+    white-space: pre-line;
+}
+
+.nav {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.nav:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/*
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}*/
+
+.carousel-thumbs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.5;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.thumb:hover {
+    opacity: 0.8;
+}
+
+.thumb.active {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#lightbox-img {
+    touch-action: pan-y;
+}
+
+#lightbox-img {
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+
+    .lightbox-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    #lightbox-img {
+        width: 100%;
+        max-height: 55vh;
+        object-fit: contain;
+    }
+
+    #lightbox-title {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #lightbox-desc {
+        text-align: center;
+        margin-top: 10px;
+        white-space: pre-line;
+    }
+
+    .carousel-thumbs {
+        margin-top: 20px;
+        justify-content: center;
+    }
+}
+
    </style>
    </head>
 <body>
@@ -164,41 +287,139 @@
  <a href="index.html"> <img src="SeracSigil.png" alt="Logo" class="logo"> </a>
 
 <div class="page">
-     <h1 class="intro-text">Illustrations</h1>
+     <h1 class="intro-text">3D Models</h1>
      <div class="container">
   
         <section class="gallery">
             <div class="gallery-item"
-                data-title="Proyecto Uno"
-                data-description="Descripción breve del proyecto uno."
-                data-image="files/imgs/GunPortrait.png">
-                <img src="files/imgs/GunPortrait.png" alt="">
+                data-title="Kept The Names"
+                data-description="Screenshots for our current indie game project ''Kept The Names'' (TBA), 
+Exploration horror videogame about solving puzzles and mysteries on an dark forest."
+                data-images="Files/3d/KTN/Cross.png,Files/3d/KTN/Cave.jpg,Files/3d/KTN/Path.jpg,Files/3d/KTN/Camp.jpg,Files/3d/KTN/Tree.jpg,Files/3d/KTN/Deer.png,Files/3d/KTN/Skull.jpg,Files/3d/KTN/Ghost.png">
+                <img src="Files/3d/KTN/Cross.png" alt="">
             </div>
 
             <div class="gallery-item"
-                data-title="Proyecto Dos"
-                data-description="Descripción breve del proyecto dos."
-                data-image="files/imgs/6ulletsNoCaps.png">
-                <img src="files/imgs/6ulletsNoCaps.png" alt="">
+                data-title="Sheva Alomar"
+                data-description="Interpretation of the character from the ''Resident Evil'' franchise based on the RE-Engine (Village and Requiem) visual style, taking into account the time that has passed in history since her first (and last) appearance."
+                data-images="Files/3d/ShevaRenderGun.png,Files/3D/ShevaRenderBow.png,Files/3D/ShevaRenderWalk.png">
+               <img src="Files/3d/ShevaRenderGun.png" alt="">
             </div>
 
             <div class="gallery-item"
-                data-title="Proyecto Tres"
-                data-description="Descripción breve del proyecto tres."
-                data-image="files/imgs/altus.png">
-                <img src="files/imgs/altus.png" alt="Shadow">
+                data-title="The Dark Game Misstres"
+                data-description="Fan-Art of the character Jocasta from the indie game ''YIIK I.V'' (Intravenous) 
+based on her side-mission outfit and link with the ''Karta''."
+                data-images="Files/3d/JoKartaFinal.png">
+                <img src="Files/3d/thumb/JoKartaThumb.png" alt="">
             </div>
+
+             <div class="gallery-item"
+                data-title="Mugler"
+                data-description="Based on the art made by Yec_Yourz. Character inspired by the ''Jet Set Radio'' series visual style."
+                data-images="Files/3d/MuglerMain.png,Files/3d/MuglerConcept.png">
+                <img src="Files/3d/thumb/MuglerThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="The Custodian"
+                data-description="Original Character based on the games developed by FromSoftware like ''King's Field'' or ''Demon's Souls''."
+                data-images="Files/3d/Custodian.png,Files/3d/CustodianBody.png">
+                <img src="Files/3d/thumb/CustodianThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Pac-Man"
+                data-description="3D Model based on the style used in older Arcade cabinet illustrations of the Dot-Muncher"
+                data-images="Files/3d/Pac-Render.png">
+                <img src="Files/3d/thumb/PacSplat.png" alt="">
+            </div>
+
+            <div class="gallery-item"
+                data-title="Pac-Man"'
+                data-description="Recreation of one of the scenes in ''Night Manor'', one of the many games included in ''UFO 50''.
+The idea was to adapt this moment into an old Pre-Render style coming from a classic Playstation connected into a CRT TV display."
+                data-images="Files/3d/NightManorF.png,Files/3d/NightManor.png">
+                <img src="Files/3d/thumb/NightThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Slug Cat"
+                data-description="A slightly realistic interpretation of the ficticious species called ''Slugcat'' from the indie videogame ''Rain World''."
+                data-images="Files/3d/SlugCatW.png">
+                <img src="Files/3d/thumb/SlugCatThumb.png" alt="">
+            </div>
+            
+              <div class="gallery-item"
+                data-title="Silly Fella"
+                data-description="A cute character once kept as a draft in one of my sketchbooks, now the mark I utilize in all of my works."
+                data-images="Files/3d/SillyHeart.png,Files/3d/SillyEmote.png,Files/3d/SillyAngry.png,Files/3d/SillyWork.png,Files/3d/SillyPoly.png,Files/3d/SillyPolyHeart.png">
+                <img src="Files/3d/SillyHeart.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Cate Archer"
+           data-description="Recreation of the main character from ''The Operative:No One Lives Forever'' using a modern cartoon style inspired in games like ''Fortnite'' and ''Overwatch''."
+                data-images="Files/3d/CateRender.png,Files/3d/CateNew.png,Files/3d/CateEmote.png">
+                <img src="Files/3d/thumb/CateThumb.png" alt="">
+            </div>
+
+            <div class="gallery-item"
+                data-title="The Protagonist"
+                data-description="3D interpretation of ''The Protagonist'' from ''moon: Remix RPG Adventure'' "
+                data-images="Files/3d/Boy1.png,Files/3d/Boy2.png">
+                <img src="Files/3d/thumb/BoyThumb.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Amanda"
+                data-description="Ps2 style character based on classic horror game series like ''Resident Evil'' or ''Silent Hill''."
+                data-images="Files/3d/AmandaShy.jpg,Files/3d/AmandaScared.png,Files/3d/AmandaCutscene.png,Files/3d/AmandaSides.jpg,Files/3d/AmandaShow.png">
+                <img src="Files/3d/AmandaShow.png" alt="">
+            </div>
+
+             <div class="gallery-item"
+                data-title="Ghost Head"
+                data-description="Modern interpretation of the main villain from ''Clock Tower: Ghost Head''."
+                data-images="Files/3d/GhostHead.png,Files/3d/GhostSide.png">
+                <img src="Files/3d/thumb/GhostHeadThumb.png" alt="">
+            </div>
+            
+             <div class="gallery-item"
+                data-title="Signal"
+                data-description="A ''Jet Set Radio'' inspired character utilizing his distinctive low-poly style, one of my first 3D model projects."
+                data-images="Files/3d/SignalRender.png">
+                <img src="Files/3d/thumb/SignalThumb.png" alt="">
+            </div>
+
+
         </section>
     </main>
 
-    <!-- LIGHTBOX -->
+    <!-- LIGHTBOX 
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <img id="lightbox-img" src="">
             <h3 id="lightbox-title"></h3>
             <p id="lightbox-desc"></p>
         </div>
+    </div>-->
+
+<div class="lightbox" id="lightbox">
+
+    <div class="lightbox-content">
+
+        <img id="lightbox-img" src="">
+
+       <!-- <div class="carousel-dots" id="carouselDots"></div> -->
+        <div class="carousel-thumbs" id="carouselThumbs"></div>
+
+        <h3 id="lightbox-title"></h3>
+
+        <p id="lightbox-desc"></p>
+
     </div>
+
 </div>
 </body>
 
@@ -214,6 +435,7 @@
         ctx.font = "16px monospace";
     }
 
+
 window.addEventListener("load", () => {
     setTimeout(() => {
         canvas.style.opacity = "1";
@@ -226,6 +448,7 @@ window.addEventListener("load", () => {
 
     // Símbolos suaves (menos contraste)
     const symbols = " ✧✦";
+   //const symbols = "✜✚✛";
 
     // Paleta vaporwave suave
     const colors = [
@@ -319,14 +542,56 @@ function drawCloudNoise(timeStamp) {
         const title = document.getElementById("lightbox-title");
         const desc = document.getElementById("lightbox-desc");
 
+        let currentImages = [];
+        let currentIndex = 0;
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const dotsContainer = document.getElementById("carouselDots");
+        const thumbsContainer = document.getElementById("carouselThumbs");
+/*
         items.forEach(item => {
             item.addEventListener("click", () => {
-                img.src = item.dataset.image;
+                const images = item.dataset.images.split(",");
+                img.src = images[1];
+
                 title.textContent = item.dataset.title;
                 desc.textContent = item.dataset.description;
                 lightbox.classList.add("active");
             });
-        });
+        });*/
+
+        items.forEach(item => {
+
+
+    item.addEventListener("click", () => {
+
+        currentImages = item.dataset.images
+            .split(",")
+            .map(img => img.trim());
+
+        currentIndex = 0;
+
+
+if (currentImages.length <= 1) {
+
+    thumbsContainer.style.display = "none";
+
+} else {
+
+    thumbsContainer.style.display = "flex";
+}
+
+        updateCarousel();
+
+        title.textContent = item.dataset.title;
+        desc.textContent = item.dataset.description;
+
+        lightbox.classList.add("active");
+    });
+
+});
 
         lightbox.addEventListener("click", () => {
             lightbox.classList.remove("active");
@@ -337,6 +602,135 @@ function drawCloudNoise(timeStamp) {
                 lightbox.classList.remove("active");
             }
         });
+
+function updateCarousel() {
+
+    img.style.opacity = 0;
+    img.style.transform = "scale(0.98)";
+
+    setTimeout(() => {
+
+        img.src = currentImages[currentIndex];
+
+        img.style.opacity = 1;
+        img.style.transform = "scale(1)";
+
+        createThumbs();
+
+    }, 150);
+}
+/*
+function createDots() {
+
+    dotsContainer.innerHTML = "";
+
+    currentImages.forEach((_, index) => {
+
+        const dot = document.createElement("div");
+
+        dot.classList.add("dot");
+
+        if (index === currentIndex) {
+            dot.classList.add("active");
+        }
+
+        dot.addEventListener("click", (e) => {
+
+            e.stopPropagation();
+
+            currentIndex = index;
+
+            updateCarousel();
+        });
+
+        dotsContainer.appendChild(dot);
+    });
+}*/
+
+function createThumbs() {
+
+    thumbsContainer.innerHTML = "";
+
+    currentImages.forEach((imageSrc, index) => {
+
+        const thumb = document.createElement("div");
+
+        thumb.classList.add("thumb");
+
+        if (index === currentIndex) {
+            thumb.classList.add("active");
+        }
+
+        const thumbImg = document.createElement("img");
+
+        thumbImg.src = imageSrc;
+
+        thumb.appendChild(thumbImg);
+
+        thumb.addEventListener("click", (e) => {
+
+            e.stopPropagation();
+
+            currentIndex = index;
+
+            updateCarousel();
+        });
+
+        thumbsContainer.appendChild(thumb);
+    });
+}
+
+function nextImage() {
+
+    currentIndex++;
+
+    if (currentIndex >= currentImages.length) {
+        currentIndex = 0;
+    }
+
+    updateCarousel();
+}
+
+function prevImage() {
+
+    currentIndex--;
+
+    if (currentIndex < 0) {
+        currentIndex = currentImages.length - 1;
+    }
+
+    updateCarousel();
+}
+
+img.addEventListener("touchend", (e) => {
+
+    touchEndX = e.changedTouches[0].screenX;
+
+    const diff = touchStartX - touchEndX;
+
+    if (diff > 50) {
+        nextImage();
+    }
+
+    if (diff < -50) {
+        prevImage();
+    }
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+        lightbox.classList.remove("active");
+    }
+
+    if (e.key === "ArrowRight") {
+        nextImage();
+    }
+
+    if (e.key === "ArrowLeft") {
+        prevImage();
+    }
+});
 
 </script>
 

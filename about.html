@@ -1,12 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proyectos</title>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
 
-<style>
+    <style>
        * {
             margin: 0;
             padding: 0;
@@ -32,16 +31,15 @@
             opacity: 0;
             transition: opacity .5s ease;
         }
-
         /* Contenedor principal */
-        .page {
+         .page {
             position: relative;
             z-index: 1;
             min-height: 100vh;
-            display: flex;
+            display: block;
             justify-content: center;
             align-items: top;
-            padding: 20px;
+            padding: 120px 20px 40px;
        background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.85),
@@ -50,7 +48,19 @@
             );
         }
 
-         /* Logo */
+        .container {
+            background: #101317;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto; /* ← centra horizontalmente */
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            /*column-count: 2;*/
+        }
+
+      
+        /* Logo */
         .logo {
             position: fixed;
             top: 24px;
@@ -74,6 +84,127 @@
             }
         }
 
+        /* Contenedor principal */
+
+        .container {
+            background: #101317;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1100px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            /*column-count: 2;*/
+        }
+
+
+        .columnContainer {
+
+            display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        }
+
+        .divider {
+    width: 100%;
+       height: 2px;
+    margin: 10px 0;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(242, 36, 78, 0.6),
+        transparent
+    );
+}
+
+        @media (max-width: 768px) {
+            .columnContainer {
+            grid-template-columns: 1fr;
+            }
+
+        }
+
+            .image-wrapper {
+                position: relative;
+                margin-left: -40px;
+                margin-right: -40px;
+                margin-top: -20px;
+                margin-bottom: -40px;
+
+                max-height: 480px;          /* ← CLAVE */
+                overflow: hidden;
+            }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+            border-radius: 20px 20px 0 0;
+        }
+  
+        h2 {
+            color: #f2244e;
+            margin-top: 0px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            white-space: pre-line;
+        }
+
+
+        p {
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: #eaf2f5;
+            white-space: pre-line;
+        }
+
+        @keyframes logoFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 0.85;
+                transform: translateY(0);
+            }
+        }
+
+
+.intro-text {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    text-align: center; /* o center si quieres */
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.socials {
+    display: flex;
+ justify-content: center;
+    gap: 14px;
+ /*   margin-top: 12px;*/
+}
+
+.socials a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.socials img {
+    display: block;
+}
+
+.socials a:hover img {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+ 
+
    </style>
 
 <body>
@@ -83,11 +214,53 @@
  <a href="index.html"> <img src="SeracSigil.png" alt="Logo" class="logo"> </a>
 
 <div class="page">
-  <h1>About & Contact</h1>
- <!-- <a href="index.html">← Volver</a> -->
-  <div>
-</body>
+       <h1 class="intro-text">About & Contact</h1>
+    <div class="container">
 
+        <div class="columnContainer">
+
+  <!-- Columna izquierda -->
+  <div class="col-left">
+
+   <div class="image-wrapper">
+        <img src="SelfPortrait2.png">
+            </div>
+   <!--  <p>Hello I'm Matías (He/Him)! A young Artist graduated from college as a Video Game Designer trying to combine his knowledge of programming with his love for all types of art!​ </p> -->
+
+  </div>
+
+  <!-- Columna derecha -->
+  <div class="col-right">
+        <div class="divider"></div>
+ <h2>
+ Hello I'm Matías (He/Him) ! 
+ A young Artist graduated from college as a Video Game Designer 
+ trying to combine his knowledge of programming with his love for art!​ 
+ 
+ </h2>
+
+  <p>You can contact me via Email or Discord!</p>
+
+ <div class="socials">
+      <a href="mailto:formas.matias@gmail.com">
+        <img src="https://img.icons8.com/?size=100&id=Kdxoczl8qte4&format=png&color=FFFFFF" height="48">
+      </a>
+
+      <a href="https://discord.gg/jtrg2DRR">
+        <img src="https://img.icons8.com/?size=100&id=30888&format=png&color=FFFFFF" height="42">
+      </a>
+          </div>
+
+          <p> 
+          </p>
+        <div class="divider"></div>
+
+  <!--   <p>   Here is my portfolio!</p>-->
+
+  </div>
+
+</div>
+</div>
 <script>
     const canvas = document.getElementById("noise");
     const ctx = canvas.getContext("2d");
