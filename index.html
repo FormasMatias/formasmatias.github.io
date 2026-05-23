@@ -190,12 +190,12 @@
 
         .image-wrapper {
         max-height: 160px;
-
+        object-position: center center;
         margin-left: -20px;
         margin-right: -20px;
         margin-top: -20px;
-        height: 220px;
-    
+
+
     }
 
 
@@ -424,8 +424,305 @@ function drawCloudNoise(timeStamp) {
    window.addEventListener("load", () => {
     setTimeout(drawCloudNoise, 500);
 });
+
+/*
+
+    const canvas = document.getElementById("noise");
+    const ctx = canvas.getContext("2d", {
+        alpha: false
+    });
+
+    const isFirefox =
+        navigator.userAgent
+            .toLowerCase()
+            .includes("firefox");
+
+    // =========================
+    // PERFORMANCE SETTINGS
+    // =========================
+
+    const FPS = isFirefox ? 10 : 14;
+    const FRAME_TIME = 1000 / FPS;
+
+    const DPR = Math.min(
+        window.devicePixelRatio || 1,
+        1.25
+    );
+
+    const fontSize = isFirefox ? 24 : 16;
+
+    const symbols = " ✧✦";
+
+    const colors = [
+        [60, 16, 26],
+        [180, 50, 85],
+        [185, 56, 73]
+    ];
+
+    let animationRunning = true;
+
+    let animationFrameId = null;
+
+    let lastFrameTime = 0;
+
+    let time = 0;
+
+    let offsetX = Math.random() * 1000;
+    let offsetY = Math.random() * 1000;
+
+    let driftX = Math.random() * 0.25 + 0.1;
+    let driftY = Math.random() * 0.25 + 0.1;
+
+    let cols = 0;
+    let rows = 0;
+
+    // =========================
+    // RESIZE
+    // =========================
+
+    function resize() {
+
+        canvas.width =
+            window.innerWidth * DPR;
+
+        canvas.height =
+            window.innerHeight * DPR;
+
+        canvas.style.width =
+            window.innerWidth + "px";
+
+        canvas.style.height =
+            window.innerHeight + "px";
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        ctx.scale(DPR, DPR);
+
+        ctx.font =
+            `${fontSize}px monospace`;
+
+        cols = Math.ceil(
+            window.innerWidth / fontSize
+        );
+
+        rows = Math.ceil(
+            window.innerHeight / fontSize
+        );
+    }
+
+    resize();
+
+    let resizeTimeout;
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            clearTimeout(resizeTimeout);
+
+            resizeTimeout = setTimeout(
+                resize,
+                120
+            );
+        }
+    );
+
+    // =========================
+    // VISIBILITY PAUSE
+    // =========================
+
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+
+            animationRunning =
+                !document.hidden;
+
+            if (
+                animationRunning &&
+                !animationFrameId
+            ) {
+
+                lastFrameTime = 0;
+
+                animationFrameId =
+                    requestAnimationFrame(
+                        drawCloudNoise
+                    );
+            }
+        }
+    );
+
+    // =========================
+    // DRAW
+    // =========================
+
+    function drawCloudNoise(timestamp = 0) {
+
+        if (!animationRunning) {
+
+            animationFrameId = null;
+            return;
+        }
+
+        // FPS LIMIT
+
+        if (
+            timestamp - lastFrameTime <
+            FRAME_TIME
+        ) {
+
+            animationFrameId =
+                requestAnimationFrame(
+                    drawCloudNoise
+                );
+
+            return;
+        }
+
+        lastFrameTime = timestamp;
+
+        // BACKGROUND FADE
+
+        ctx.fillStyle =
+            "rgba(20, 10, 30, 0.35)";
+
+        ctx.fillRect(
+            0,
+            0,
+            window.innerWidth,
+            window.innerHeight
+        );
+
+        // DRIFT
+
+        offsetX += driftX;
+        offsetY += driftY;
+
+        // DRAW GRID
+
+        for (let row = 0; row < rows; row++) {
+
+            const y = row * fontSize;
+
+            for (
+                let col = 0;
+                col < cols;
+                col++
+            ) {
+
+                const x = col * fontSize;
+
+                const nx =
+                    (x + offsetX) * 0.02;
+
+                const ny =
+                    (y + offsetY) * 0.02;
+
+                // LIGHTER MATH
+                // (much cheaper)
+
+                const n =
+                    Math.sin(
+                        nx + time * 0.6
+                    ) *
+                        0.6 +
+
+                    Math.cos(
+                        ny - time * 0.4
+                    ) *
+                        0.6 +
+
+                    Math.sin(
+                        (nx + ny) * 0.7 +
+                            time * 0.2
+                    ) *
+                        0.4;
+
+                const intensity =
+                    (n + 2) / 4;
+
+                const char =
+                    symbols[
+                        Math.floor(
+                            intensity *
+                                symbols.length
+                        )
+                    ] || " ";
+
+                const c =
+                    colors[
+                        Math.floor(
+                            intensity *
+                                colors.length
+                        )
+                    ];
+
+                const alpha =
+                    0.03 +
+                    intensity * 0.18;
+
+                ctx.fillStyle =
+                    `rgba(
+                        ${c[0]},
+                        ${c[1]},
+                        ${c[2]},
+                        ${alpha}
+                    )`;
+
+                // HUGE Firefox optimization
+
+                if (!isFirefox) {
+
+                    ctx.shadowColor =
+                        ctx.fillStyle;
+
+                    ctx.shadowBlur = 8;
+                }
+
+                ctx.fillText(
+                    char,
+                    x,
+                    y
+                );
+            }
+        }
+
+        time += 0.08;
+
+        animationFrameId =
+            requestAnimationFrame(
+                drawCloudNoise
+            );
+    }
+
+    // =========================
+    // START
+    // =========================
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            setTimeout(() => {
+
+                canvas.style.opacity = "1";
+
+                if (!animationFrameId) {
+
+                    animationFrameId =
+                        requestAnimationFrame(
+                            drawCloudNoise
+                        );
+                }
+
+            }, 300);
+        }
+    );
+
+*/
 </script>
 
 
-</body>
+
 </html>
