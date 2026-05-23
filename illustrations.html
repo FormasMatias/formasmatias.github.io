@@ -693,11 +693,11 @@ img.addEventListener("touchend", (e) => {
 
     const diff = touchStartX - touchEndX;
 
-    if (diff > 50) {
+    if (diff < 50) {
         nextImage();
     }
 
-    if (diff < -50) {
+    if (diff > -50) {
         prevImage();
     }
 });
